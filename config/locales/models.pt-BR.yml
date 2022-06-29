@@ -1,0 +1,14 @@
+'pt-BR':
+  activerecord:
+    models:
+      admin:
+        one: Administrador
+        other: Administradores
+      profile:
+        one: Perfil
+        other: Perfis 
+    attributes:
+      admin:
+        email: "Email"
+      profile:
+        email: "Email"
