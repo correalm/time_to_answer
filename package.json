@@ -1,5 +1,16 @@
 {
   "name": "time_to_answer",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "bootstrap": "4.6.0",
+    "font-awesome": "^4.6.3",
+    "jquery": "3.6.0",
+    "jquery-easing": "^0.0.1",
+    "metismenu": "1.1.3"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/correalm/time_to_answer.git",
+  "author": "miguel <luismigueldasilva.99@gmail.com>",
+  "license": "MIT"
 }
