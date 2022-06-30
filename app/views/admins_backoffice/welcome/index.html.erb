@@ -1,2 +1,10 @@
 <h1>AdminsBackoffice::Welcome#index</h1>
 <p>Find me in app/views/admins_backoffice/welcome/index.html.erb</p>
+
+<% if admin_signed_in? %>
+    <p>Administrador logado como <%= current_admin.email %></p>
+<% else %>
+    <p>Administrador não está logado</p>
+<% end %>
+
+<%= link_to 'Fazer logoff[Administrador]', destroy_admin_session_path, method: :delete %> 

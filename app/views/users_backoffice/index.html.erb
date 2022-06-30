@@ -1,2 +1,12 @@
 <h1>UsersBackoffice::Welcome#index</h1>
 <p>Find me in app/views/users_backoffice/welcome/index.html.erb</p>
+
+
+<% if user_signed_in? %>
+    <p>Usuário logado como <%= current_user.email %></p>
+<% else %>
+    <p>Usuário não está logado</p>
+<% end %>
+
+<%= link_to 'Fazer logoff[Usuário]', destroy_user_session_path, method: :delete %> 
+
