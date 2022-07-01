@@ -6,12 +6,13 @@ Rails.application.routes.draw do
     get 'welcome/index'
   end
   namespace :admins_backoffice do
+    # dashboard
     get 'welcome/index'
+    resources :admins
   end
 
   devise_for :users
   devise_for :admins
-
   get 'start', to: "site/welcome#index"
 
   # Aqui defino a rota padrão do app. O inicio é sempre no site geral

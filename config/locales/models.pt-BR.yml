@@ -10,5 +10,9 @@
     attributes:
       admin:
         email: "Email"
+        password: "Senha"
+        password_confirmation: "Confirmar senha"
       user:
         email: "Email"
+        password: "Senha"
+        password_confirmation: "Confirmar senha"
