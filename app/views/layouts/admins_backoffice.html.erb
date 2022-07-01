@@ -337,12 +337,9 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <% link_to destroy_admin_session_path, method: :delete do %>                                 
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout
-                                <% end %>
-
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                </a>
+                                    <%= link_to destroy_admin_session_path, method: :delete, class: "dropdown-item" do %>
+                                      Sair
+                                    <% end %>
                             </div>
                         </li>
 
