@@ -1,7 +1,7 @@
 class AdminsBackoffice::AdminsController < AdminsBackofficeController
   # Sempre acontece antes da ação...
   before_action :password_verify, only: [:update]
-  before_action :set_admin, only: [:edit, :update]
+  before_action :set_admin, only: [:edit, :update, :destroy]
 
   def index
     @admins = Admin.all
@@ -31,6 +31,14 @@ class AdminsBackoffice::AdminsController < AdminsBackofficeController
     end
   end
 
+  def destroy
+    if @admin.destroy
+      redirect_to admins_backoffice_admins_path, notice: "Administrador removido com sucesso"
+    else
+      render :index
+    end
+  end
+
   private
   def params_admin
     params.require(:admin).permit(:email, :password, :password_confirmation)
@@ -44,7 +52,6 @@ class AdminsBackoffice::AdminsController < AdminsBackofficeController
     if params[:admin][:password].blank? && params[:admin][:password_confirmation].blank?
       params[:admin].extract!(:password, :password_confirmation)
     end
-    
   end
 
 end

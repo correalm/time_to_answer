@@ -4,7 +4,4 @@
 
 //= require jquery/dist/jquery.min
 //= require bootstrap/dist/js/bootstrap.bundle.min
-//= require fastclick/lib/fastclick
-//= require nprogress/nprogress.js
-//= require malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar
 //= require custom
