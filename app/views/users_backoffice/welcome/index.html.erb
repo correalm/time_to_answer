@@ -8,5 +8,6 @@
     <p>Usuário não está logado</p>
 <% end %>
 
-<%= link_to 'Fazer logoff[Usuário]', destroy_user_session_path, method: :delete %> 
+<%= link_to 'Sign out', destroy_user_session_path(:authenticity_token => form_authenticity_token()), method: 'delete' %>
+<%#= link_to 'Fazer logoff[Usuário] esse', destroy_user_session_path, data: { method: :delete } %> 
 
