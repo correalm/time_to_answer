@@ -1,6 +1,7 @@
 namespace :dev do
 
   DEFAULT_PASSWORD = 123456
+  DEFAULT_FILES_PATH = File.join(Rails.root, 'lib', 'tmp')
 
   desc "Config the development enviroment"
   task setup: :environment do
@@ -9,6 +10,8 @@ namespace :dev do
       %x(rails dev:add_default_admin)
       %x(rails dev:add_more_admins)
       %x(rails dev:add_default_user)
+      %x(rails dev:add_subjects)
+      %x(rails dev:add_questions)
     else
       puts "Need development enviroment"
     end
@@ -42,4 +45,27 @@ namespace :dev do
       password_confirmation: DEFAULT_PASSWORD
     )
   end
+
+  desc "Adiciona assuntos padrão"
+  task add_subjects: :environment do
+    file_name = 'subjects.txt'
+    file_path = File.join(DEFAULT_FILES_PATH, file_name)
+
+    File.open(file_path, 'r').each do |line|
+      Subject.create!(description: line.strip)
+    end
+  end
+
+  desc "Adiciona perguntas e respostas"
+  task add_questions: :environment do
+    Subject.all.each do |subject|
+      rand(5..10).times do |i|
+        Question.create!(
+          description: "#{Faker::Lorem.paragraph}#{Faker::Lorem.question}",
+          subject: subject
+        )
+      end
+    end
+  end
+
 end

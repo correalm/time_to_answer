@@ -1,0 +1,36 @@
+<h1>Assuntos/Áreas de conhecimento</h1>
+<hr>
+
+
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Descrição</th>
+      <th scope="col">
+        <%= link_to new_admins_backoffice_subject_path do %>
+          Novo Assunto/Área
+        <% end %>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @subjects.each do |subject| %>
+      <th scope="row"> <%= subject.id  %></th>
+      <td><%= subject.description %></td>
+      <td style="width: fit-content">
+        <%= link_to edit_admins_backoffice_subject_path(subject), class: "btn btn-primary btn-sm" do %>
+          Editar
+        <% end %>
+        <%= link_to admins_backoffice_subject_path(subject), method: :delete, class: "btn btn-danger btn-sm", data: { confirm: "Deseja excluir a questão?"} do %>
+          Apagar Assunto
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @subjects %>
+
+

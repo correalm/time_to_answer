@@ -1,0 +1,19 @@
+<h1><%= action_message %></h1>
+<hr>
+
+<% if @subject.errors.any? %>
+  <% @subject.errors.full_messages.each do |message| %>
+    <span style="color: red"><%= message %></span>
+  <% end %>
+<% end %>
+
+
+<%# com  [ :admins_backoffice, @admin] o rails determina qual a ação deve tomar. Se o @admin for nil, é a rota create. Caso contrário é a rota edit %>
+<%= form_with(model: [ :admins_backoffice, @subject], local: true) do |f| %>
+  <div class="form-group">
+    <%=f.label :description %>
+    <%= f.text_field :description, class: "form-control", placeholder:"Descrição" %>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Salvar</button>
+<% end %>
