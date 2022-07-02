@@ -1,0 +1,38 @@
+<h1>Questões</h1>
+<hr>
+
+
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Descrição</th>
+      <th scope="col">Assunto/Área</th>
+      <th scope="col">
+        <%= link_to new_admins_backoffice_question_path do %>
+          Novo Assunto/Área
+        <% end %>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @questions.each do |question| %>
+      <th scope="row"> <%= question.id  %></th>
+      <td><%= question.description.truncate(50) %></td>
+      <td><%= question.subject.description.truncate(30) %></td>
+      <td style="width: fit-content">
+        <%= link_to edit_admins_backoffice_question_path(question), class: "btn btn-primary btn-sm" do %>
+          Editar
+        <% end %>
+        <%= link_to admins_backoffice_question_path(question), method: :delete, class: "btn btn-danger btn-sm", data: { confirm: "Deseja excluir a questão?"} do %>
+          Apagar Questão
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @questions %>
+
+
