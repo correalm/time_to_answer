@@ -7,7 +7,7 @@
   <thead>
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">Descrição</th>
+      <th scope="col"><%= translate_attr(@subjects, :description) %></th>
       <th scope="col">
         <%= link_to new_admins_backoffice_subject_path do %>
           Novo Assunto/Área

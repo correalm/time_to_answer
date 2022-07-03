@@ -7,7 +7,7 @@
   <thead>
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">Email</th>
+      <th scope="col"><%= translate_attr(@admins, :email) %></th>
       <th scope="col">
         <%= link_to new_admins_backoffice_admin_path do %>
           Novo Administrador
