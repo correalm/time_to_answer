@@ -1,0 +1,17 @@
+<% @questions.each do |question| %>
+    <div class="card">
+      <h5 class="card-header">Questão <%= question.id  %></h5>
+      <div class="card-body">
+        <h5 class="card-title"><%= question.description %></h5>
+        <ul>
+            <% question.answers.each do |answer|%>
+                <li>
+                    <p class="card-text"><%= answer.description %></p>
+                </li>
+            <% end %>
+        </ul>
+      </div>
+    </div>
+    <hr>
+<% end %>
+<%= paginate @questions %>
