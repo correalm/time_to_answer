@@ -42,7 +42,7 @@ class AdminsBackoffice::QuestionsController < AdminsBackofficeController
 
   private
   def params_question
-    params.require(:question).permit(:description, :subject_id)
+    params.require(:question).permit(:description, :subject_id, ansewers_attributes: [:id, :description, :correct, :_destroy])
   end
   def set_question
     @question = Question.find(params[:id])

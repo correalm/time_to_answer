@@ -8,3 +8,4 @@
 //= require metismenu/dist/metisMenu.min
 //= require sb-admin-2
 //= require bootstrap-growl-ifightcrime/jquery.bootstrap-growl.min
+//= require cocoon
