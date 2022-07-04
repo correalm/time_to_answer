@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   namespace :site do
     get 'welcome/index'
     get 'search', to: 'search#questions'
+    get 'subject/:subject_id/:subject', to: 'search#subject', as: "search_subject"
     post 'answer', to: 'answer#verify'
   end
   namespace :users_backoffice do
@@ -16,7 +17,8 @@ Rails.application.routes.draw do
   end
 
   devise_for :users
-  devise_for :admins
+  # Aqui eu retiro a rota externa de registro de administradores
+  devise_for :admins, skip: [:registrations]
   get 'start', to: "site/welcome#index"
 
   # Aqui defino a rota padrão do app. O inicio é sempre no site geral

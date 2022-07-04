@@ -1,26 +1,30 @@
 <div class="jumbotron">
-  <% unless params[:term] %>
-    <h3 class="display-5">Últimas perguntas cadastradas</h3>
-  <% else %>
-    <h3 class="display-5">Exibindo resultados para: "<%= params[:term] %>"</h3>
-    
-  <% end %>
+  <h3>
+    <%= msg_jumbotron %>
+  </h3>
 </div>
+
 <% @questions.each do |question| %>
-  <%= form_with url: site_answer_path, local: true do |f| %>
+  <%= form_with url: site_answer_path do |f| %>
     <div class="card">
-      <h5 class="card-header">Questão <%= question.id  %></h5>
+      <h5 class="card-header">
+        Questão
+        <%= question.id  %> - 
+        <span>
+          <%= link_to "#{question.subject.description} (#{question.subject.questions_count})", site_search_subject_path(question.subject_id, question.subject.description), class:"badge badge-secondary" %>
+        </span>
+      </h5>
       <div class="card-body">
         <h5 class="card-title"><%= question.description %></h5>
         <ul style="list-style:none;">
             <% question.answers.each do |answer|%>
                 <li>
-                    <%= radio_button_tag 'answer', answer.id%> <span class="card-text"><%= answer.description %></span>
+                    <%= radio_button_tag 'answer_id', answer.id%> <span class="card-text"><%= answer.description %></span>
                 </li>
             <% end %>
             <hr>
             <li>
-              <%= f.submit "Responder", class:"btn btn-primary" %>
+              <%= f.submit "Responder", class:"btn btn-primary", id:"submit_#{question.id}" %>
             </li>
         </ul>
       </div>
