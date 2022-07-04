@@ -6,4 +6,10 @@ class Question < ApplicationRecord
 
   # kaminari
   paginates_per 5
+
+  # O scope deve ser criado quando preciso fazer querys no meu DB
+  scope :search, -> (params){
+    includes(:answers).where("lower(description) LIKE ?", "%#{ params[:term].downcase }%").page(params[:page])
+  }
+
 end

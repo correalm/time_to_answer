@@ -1,8 +1,7 @@
 class Site::SearchController < SiteController
   def questions
     # O % % é o carctere curinga do Active Record do Rails
-    @questions = Question.includes(:answers)
-                        .where("lower(description) LIKE ?", "%#{ params[:term].downcase }%")
-                        .page(params[:page])
+    # é preciso cuidar que o like pode acabar levando a problemas de performance. Implementa uma pesquisa linha a linha
+    @questions = Question.search(params)
   end
 end
