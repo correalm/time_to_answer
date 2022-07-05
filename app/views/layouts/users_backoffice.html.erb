@@ -27,8 +27,8 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>USER TODO</h2>
+                <span>Bem vindo(a),</span>
+                <h2><%= current_user.first_name %></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -119,5 +119,16 @@
     
     <%= javascript_include_tag 'application' %>
     <%= javascript_include_tag 'users_backoffice' %>
+
+    <% if notice %>
+        <script>
+            $.bootstrapGrowl(`<%= notice %>`, {
+            type: 'success', // (null, 'info', 'danger', 'success')
+            align: 'right', // ('left', 'right', or 'center')
+            allow_dismiss: true, // If true then will display a cross to close the popup.
+            stackup_spacing: 10 // spacing between consecutively stacked growls.
+            });
+        </script>
+    <% end %>
   </body>
 </html>
