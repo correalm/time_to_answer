@@ -31,6 +31,42 @@
             <%= f.text_field :email, readonly: true, class: "form-control"%>
           </div>
         </div>
+
+        <!-- Aqui coloco a tag que irá enviar os dados para a tabela aninhada -->
+        <%= f.fields_for :user_profile do |profile_form|%>
+          <div class="item form-group">
+            <%=profile_form.label :address, class:"col-form-label col-md-3 col-sm-3 label-align" do %>
+              Endereço 
+            <% end %>
+            <div class="col-md-6 col-sm-6 ">
+              <%= profile_form.text_field :address, class: "form-control"%>
+            </div>
+          </div>
+          <div class="item form-group">
+            <%=profile_form.label :address, class:"col-form-label col-md-3 col-sm-3 label-align" do %>
+              Sexo 
+            <% end %>
+            <div class="col-md-6 col-sm-6 ">
+             <div id="gender" class="btn-group" data-toggle="buttons">
+               <label class="btn <%= gender_select(@user, "M") %>" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                <%= profile_form.radio_button :gender, "M", class:"join-btn", "data-parsley-multiple":"gender"%> &nbsp; Masculino &nbsp;
+               </label>
+               <label class="btn <%= gender_select(@user, "F") %>" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                  <%= profile_form.radio_button :gender, "F", class:"join-btn", "data-parsley-multiple":"gender"%> Feminino                 
+               </label>
+             </div>
+            </div>
+          </div>
+          <div class="item form-group">
+            <%= profile_form.label :birthdate, class:"col-form-label col-md-3 col-sm-3 label-align" do %>
+              Data de nascimento <span class="required">*</span>
+            <% end %>
+            <div class="col-md-6 col-sm-6 ">
+              <!-- Posso utilizar isso aqui nos monitoramentos.... -->
+              <%= profile_form.date_field :birthdate, class: "form-control"%>
+            </div>
+          </div>
+        <% end %>
         <div class="item form-group">
           <%=f.label :password, class:"col-form-label col-md-3 col-sm-3 label-align" do %>
             Senha <span class="required">*</span>

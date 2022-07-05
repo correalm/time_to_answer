@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   # Aqui eu retiro a rota externa de registro de administradores
   devise_for :admins, skip: [:registrations]
   get 'start', to: "site/welcome#index"
+  get 'admin', to: "admins_backoffice/welcome#index"
 
   # Aqui defino a rota padrão do app. O inicio é sempre no site geral
   root 'site/welcome#index'
