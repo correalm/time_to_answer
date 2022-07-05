@@ -4,6 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   
+  # validations
+  validates :first_name, presence: true, length: { minimum: 3 }, on: :update
+
+  # virtual attribute
   def full_name
     "#{self.first_name} #{self.last_name}"
   end
