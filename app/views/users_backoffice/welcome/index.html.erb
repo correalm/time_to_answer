@@ -1,13 +1,25 @@
-<h1>UsersBackoffice::Welcome#index</h1>
-<p>Find me in app/views/users_backoffice/welcome/index.html.erb</p>
+<h1>Bem vindo!</h1>
 
-
-<% if user_signed_in? %>
-    <p>Usuário logado como <%= current_user.email %></p>
-<% else %>
-    <p>Usuário não está logado</p>
-<% end %>
-
-<%= link_to 'Sign out', destroy_user_session_path(:authenticity_token => form_authenticity_token()), method: 'delete' %>
-<%#= link_to 'Fazer logoff[Usuário] esse', destroy_user_session_path, data: { method: :delete } %> 
-
+<div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
+    <div class="tile-stats">
+        <div class="icon"><i class="fa fa-caret-square-o-right"></i></div>
+        <div class="count"><%= @user_statistic.total_questions %></div>
+        <h3>Total</h3>
+        <p>Total de questões respondidas por você.</p>
+    </div>
+</div>
+<div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
+    <div class="tile-stats">
+        <div class="icon"><i class="fa fa-check-square-o"></i></div>
+        <div class="count"><%= @user_statistic.right_questions %></div>
+        <h3>Acertos</h3>
+    </div>
+</div>
+<div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
+    <div class="tile-stats">
+        <div class="icon"><i class="fa fa-close"></i></div>
+        <div class="count"><%= @user_statistic.wrong_questions %></div>
+        <h3>Erros</h3>
+    </div>
+</div>
+        
