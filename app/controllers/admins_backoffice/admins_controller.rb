@@ -25,6 +25,8 @@ class AdminsBackoffice::AdminsController < AdminsBackofficeController
 
   def update
     if @admin.update(params_admin)
+      # Aqui configuro o envio do email -> Cuida deliver_now (para a execução do código nesse momento)
+      AdminMailer.update_email(current_admin, @admin).deliver_now
       redirect_to admins_backoffice_admins_path, notice: "Administrador atualizado com sucesso"
     else
       render :edit
