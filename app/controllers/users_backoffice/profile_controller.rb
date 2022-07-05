@@ -3,7 +3,6 @@ class UsersBackoffice::ProfileController < UsersBackofficeController
   before_action :set_user
   
   def edit
-    console
     # cria um perfil vazio
     @user.build_user_profile if @user.user_profile.blank?
   end
