@@ -9,12 +9,14 @@ class UsersBackoffice::ProfileController < UsersBackofficeController
 
   def update
     if @user.update(params_user)
-      # Faz o login do usuário direto, sem sair do sistema
       bypass_sign_in(@user)
-      redirect_to users_backoffice_profile_path, notice: "Usuário atualizado com sucesso"
+      # a menos que tenha avatar, trate a requisição como html
+      unless params_user[:user_profile_attributes][:image]
+        redirect_to users_backoffice_profile_path, notice: "Usuário atualizado com sucesso!"
+      end
     else
       render :edit
-    end
+    end    
   end
 
   private

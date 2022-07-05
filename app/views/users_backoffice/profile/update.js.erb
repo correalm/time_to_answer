@@ -1,0 +1,5 @@
+$('#staticBackdrop').modal('hide');
+
+//Preciso utilizar o url_for para poder acessar de fato a localização da imagem dentro do rails
+document.getElementById("image-profile").src = "<%= url_for(@user.user_profile.image) %>"
+document.getElementById("image-profile-modal").src = "<%= url_for(@user.user_profile.image) %>"
