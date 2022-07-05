@@ -4,7 +4,10 @@ class Question < ApplicationRecord
 
   # ao realizar o cadastro, questões devem aceitar atributos aninhados do model answer
   accepts_nested_attributes_for :answers, reject_if: :all_blank, allow_destroy: true
-
+  
+  # Callback (após criar uma questão, calcule a estatística)
+  after_create :set_statistic
+  
   # kaminari
   paginates_per 5
 
@@ -16,5 +19,11 @@ class Question < ApplicationRecord
   scope :_search_subject_, -> (page, subject_id){
     includes(:answers, :subject).where(subject_id: subject_id).page(page)
   }
+
+  private
+
+  def set_statistic
+    AdminStatistic.set_event(AdminStatistic::EVENTS[:total_questions])
+  end
 
 end
