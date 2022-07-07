@@ -12,7 +12,8 @@
 <%= form_with(model: [ :admins_backoffice, @question], local: true) do |f| %>
   <div class="form-group">
     <%=f.label :description %>
-    <%= f.text_area :description, class: "form-control", placeholder:"Descrição" %>
+    <%= f.hidden_field :description, class: "form-control", placeholder:"Descrição" %>
+    <trix-editor input="question_description"></trix-editor>
     
     <%=f.label :subject %>
     <%= f.collection_select(:subject_id, @subjects, :id, :description, {}, class:"form-control") %>

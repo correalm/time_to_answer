@@ -15,7 +15,7 @@
         </span>
       </h5>
       <div class="card-body">
-        <h5 class="card-title"><%= question.description %></h5>
+        <h5 class="card-title"><%= sanitize question.description %></h5>
         <ul style="list-style:none;">
             <% question.answers.each do |answer|%>
                 <li>

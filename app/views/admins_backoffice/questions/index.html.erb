@@ -19,7 +19,7 @@
   <tbody>
     <% @questions.each do |question| %>
       <th scope="row"> <%= question.id  %></th>
-      <td><%= question.description.truncate(50) %></td>
+      <td><%= sanitize question.description.truncate(50) %></td>
       <td><%= question.subject.description.truncate(30) %></td>
       <td style="width: fit-content">
         <%= link_to edit_admins_backoffice_question_path(question), class: "btn btn-primary btn-sm" do %>
