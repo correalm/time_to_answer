@@ -1,15 +1,17 @@
-var element = document.getElementById("submit-<%= @answer.question_id %>")
+var element = document.getElementById("submit-<%= @question_id %>")
 
 element.classList.remove('btn-primary')
 element.classList.remove('btn-success')
 element.classList.remove('btn-danger')
 
 
-if (<%= @answer.correct %>) {
+if (<%= @correct %>) {
   element.classList.add('btn-success')
 } else {
   element.classList.add('btn-danger')
 }
+
+
 
 
 

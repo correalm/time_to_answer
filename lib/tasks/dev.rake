@@ -83,6 +83,14 @@ namespace :dev do
       end
     end
   end
+
+  desc "Adiciona respostas no Redis"
+  task add_answers_to_redis: :environment do
+    Answer.find_each do |ans|
+      Rails.cache.write(ans.id, "#{ans.question_id}@@#{ans.correct}")
+    end
+  end
+
   
   private
 
