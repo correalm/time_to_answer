@@ -3,7 +3,17 @@ class AdminsBackoffice::SubjectsController < AdminsBackofficeController
   before_action :set_subject, only: [:edit, :update, :destroy]
 
   def index
-    @subjects = Subject.all.order(:description).page(params[:page]).per(15) 
+    respond_to do |format|
+      format.html { @subjects = Subject.all.order(:description).page(params[:page]).per(15) }
+      format.pdf  { @subjects = Subject.all.order(:description) }
+      
+      # preciso colocar entre parenteses para que ele primeiro resolva subjects para depois seguir a execução
+      # except -> digo quais parâmetros não serão passados
+      #format.json { render json: (@subjects = Subject.all.order(:description)), except: [:created_at, :updated_at] }
+      
+      # manda para o JBuilder -> precisa ter uma view com o mesmo nome da action
+      format.json { @subjects = Subject.all.order(:description) }
+    end
   end
 
   def new

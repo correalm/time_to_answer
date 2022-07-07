@@ -3,7 +3,7 @@ class AdminsBackoffice::AdminsController < AdminsBackofficeController
   before_action :password_verify, only: [:update]
   before_action :set_admin, only: [:edit, :update, :destroy]
 
-  def index
+  def index      
     @admins = Admin.all.page(params[:page]).per(5)
   end
 
@@ -25,7 +25,7 @@ class AdminsBackoffice::AdminsController < AdminsBackofficeController
 
   def update
     if @admin.update(params_admin)
-      # Aqui configuro o envio do email -> Cuida deliver_now (para a execução do código nesse momento)
+      # Aqui configuro o envio do email -> Cuidar deliver_now (para a execução do código nesse momento)
       AdminMailer.update_email(current_admin, @admin).deliver_now
       redirect_to admins_backoffice_admins_path, notice: "Administrador atualizado com sucesso"
     else

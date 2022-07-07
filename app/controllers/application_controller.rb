@@ -10,7 +10,8 @@ class ApplicationController < ActionController::Base
     end
 
     def check_pagination
-      unless user_signed_in?
+      # se eu colocar so o user, nunca vou conseguir usar só o admin
+      unless user_signed_in? or admin_signed_in?
         params.extract!(:page)
       end
     end
