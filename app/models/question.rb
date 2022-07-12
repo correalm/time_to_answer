@@ -1,4 +1,6 @@
 class Question < ApplicationRecord
+  searchkick
+
   belongs_to :subject, counter_cache: true, inverse_of: :questions
   has_many :answers
 
@@ -12,7 +14,7 @@ class Question < ApplicationRecord
   paginates_per 5
 
   # O scope deve ser criado quando preciso fazer querys no meu DB
-  scope :search, -> (params){
+  scope :_search, -> (params){
     includes(:answers, :subject).where("lower(description) LIKE ?", "%#{ params[:term].downcase }%").page(params[:page])
   }
 
