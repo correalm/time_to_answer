@@ -1,0 +1,27 @@
+<div class="jumbotron">
+  <h3>
+    <%= @test.name %>
+  </h3>
+</div>
+
+<% @questions.each do |question| %>
+  <%= form_with url: site_answer_path do |f| %>
+    <div class="card">
+      <h5 class="card-header">
+        Questão
+        <%= question.id  %> 
+      </h5>
+      <div class="card-body">
+        <h5 class="card-title"><%= sanitize question.description %></h5>
+        <ul style="list-style:none;">
+            <% question.answers.each do |answer|%>
+                <li>
+                    <%= radio_button_tag 'answer_id', answer.id%> <span class="card-text"><%= answer.description %></span>
+                </li>
+            <% end %>
+            <hr>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+<% end %>

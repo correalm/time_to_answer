@@ -10,6 +10,9 @@ Rails.application.routes.draw do
     get 'profile', to: 'profile#edit'
     patch 'profile', to: 'profile#update'
     get 'zip_code', to: 'zip_code#show'
+    get 'tests', to: 'tests#index'
+    get 'tests/:id', to: 'tests#make'
+    
   end
   namespace :admins_backoffice do
     # dashboard
@@ -17,6 +20,10 @@ Rails.application.routes.draw do
     resources :admins
     resources :subjects
     resources :questions
+    resources :tests
+    resources :test_questions
+    
+
   end
 
   devise_for :users

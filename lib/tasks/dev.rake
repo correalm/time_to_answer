@@ -12,6 +12,8 @@ namespace :dev do
       %x(rails dev:add_default_user)
       %x(rails dev:add_subjects)
       %x(rails dev:add_questions)
+      %x(rails dev:add_tests)
+
     else
       puts "Need development enviroment"
     end
@@ -59,7 +61,7 @@ namespace :dev do
   desc "Adiciona perguntas e respostas"
   task add_questions: :environment do
     Subject.all.each do |subject|
-      rand(5..10).times do |i|
+      rand(3).times do |i|
         params = create_params(subject)
         answers_array = params[:question][:answers_attributes]
 
@@ -91,6 +93,24 @@ namespace :dev do
     end
   end
 
+  desc "Adiciona respostas no Redis"
+  task add_weight_to_questions: :environment do
+    Question.all.each do | question |
+      question.weight = 2
+    end
+  end
+
+  desc "Adiciona provas"
+  task add_tests: :environment do
+    2.times do |i|
+      subject = Subject.all.sample
+      Test.create!([
+      { name: "Test #{i}", subject: subject, question_ids: [Question.all[0].id, Question.all[1].id, Question.all[3].id] },
+      { name: "Test #{i}", subject: subject, question_ids: [Question.all[57].id, Question.all[17].id, Question.all[37].id] }
+      ])
+    end
+  end
+
   
   private
 
@@ -98,6 +118,7 @@ namespace :dev do
     { question: {
         description: "#{Faker::Lorem.paragraph}#{Faker::Lorem.question}",
         subject: subject,
+        weight: 1,
         answers_attributes: [] 
       }
     }
