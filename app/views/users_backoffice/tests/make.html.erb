@@ -4,24 +4,31 @@
   </h3>
 </div>
 
-<% @questions.each do |question| %>
-  <%= form_with url: site_answer_path do |f| %>
-    <div class="card">
-      <h5 class="card-header">
-        Questão
-        <%= question.id  %> 
-      </h5>
-      <div class="card-body">
-        <h5 class="card-title"><%= sanitize question.description %></h5>
-        <ul style="list-style:none;">
-            <% question.answers.each do |answer|%>
-                <li>
-                    <%= radio_button_tag 'answer_id', answer.id%> <span class="card-text"><%= answer.description %></span>
-                </li>
-            <% end %>
-            <hr>
-        </ul>
+  <%= form_with url: users_backoffice_path, local: true do |f| %>
+    <% @questions.each do |question| %>
+      <div class="card">
+        <h5 class="card-header">
+          Questão
+          <%= question.id  %> 
+        </h5>
+        <div class="card-body">
+          <h5 class="card-title"><%= sanitize question.description %></h5>
+          <ul style="list-style:none;">
+          <%= f.fields_for :answers do |answer| %>
+           <div class="nested-fields">
+              <%= f.label :description %>
+              </br>
+              <% question.answers.each do |answer| %>
+                <%= radio_button_tag "form_questions[#{question.id}][]", answer.id %>
+                <%=h sanitize answer.description %><br />
+              <% end %>
+            </div>
+          <% end %>
+              
+              <hr>
+          </ul>
+        </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+    <%= f.submit "Enviar", class:"btn btn-primary" %>
 <% end %>
