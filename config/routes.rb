@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     get 'tests', to: 'tests#index'
     get 'tests/:id', to: 'tests#make'
     post 'tests/:id', to: 'tests#verify'
+    get 'tests/:id/result', to: 'tests#results'
 
     
   end

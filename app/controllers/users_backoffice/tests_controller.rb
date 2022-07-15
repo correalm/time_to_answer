@@ -1,5 +1,5 @@
 class UsersBackoffice::TestsController < UsersBackofficeController
-  before_action :set_test, only: [:make]
+  before_action :set_test, only: [:make, :results]
   before_action :set_statistic, only: [:make, :verify, :results] 
 
   def index
@@ -14,19 +14,40 @@ class UsersBackoffice::TestsController < UsersBackofficeController
   def verify
     teste = params[:form_questions]
     teste.each do |question_id , answer_id|
-      user_test = UserTest.new
+      user_test = TestAnswer.new
       user_test.user_id = current_user.id
-      user_test.question = question_id
+      user_test.question_id = question_id
       user_test.answer_id =  answer_id[0]
       user_test.test_id = params[:id]
       user_test.save!
     end
 
-    redirect_to users_backoffice_tests_path
+    redirect_to "/users_backoffice/tests/#{params[:id]}/result"
   end
 
   def results
+    console
+    crazyQuery = TestAnswer.select(:question_id, :answer_id).where(:user_id => current_user.id, :test_id => @test.id).to_a
+    
+    @myCrazyHash = {}
+
+    crazyQuery.each do |query|
+      @myCrazyHash[query.question_id] = query.answer_id
+    end
+
+    # correct answers
+    @corrects = Answer.select(:id).where(:id => @myCrazyHash.values, :correct => true).to_a
+
+    # weights
+    heyhey = Question.select(:id, :weight).where(:id => @myCrazyHash.keys).to_a
+    @weights = {}
+    heyhey.each do |w|
+      @weights[w.id] = w.weight
+    end
+  
   end
+
+
 
   private
 

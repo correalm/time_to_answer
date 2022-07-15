@@ -1,9 +1,9 @@
-class CreateUserTests < ActiveRecord::Migration[5.2]
+class CreateTestAnswers < ActiveRecord::Migration[5.2]
   def change
-    create_table :user_tests do |t|
+    create_table :test_answers, id: false do |t|
       t.references :user, foreign_key: true
       t.references :test, foreign_key: true
-      t.integer :question
+      t.references :question, foreign_key: true
       t.references :answer, foreign_key: true
 
       t.timestamps
