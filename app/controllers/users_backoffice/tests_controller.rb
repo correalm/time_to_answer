@@ -5,7 +5,6 @@ class UsersBackoffice::TestsController < UsersBackofficeController
   def index
     console
     @tests = Test.all.includes(:subject).includes(:questions)
-    @user_tests = UserTest.Question.where(user_id: current_user.id).all
   end
 
   def make

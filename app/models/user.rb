@@ -8,7 +8,7 @@ class User < ApplicationRecord
   # possui apenas um perfil  
   has_one :user_profile
   has_many :user_tests
-  has_many :tests, through: :test_questions
+  has_many :tests, through: :user_tests
   accepts_nested_attributes_for :user_profile, reject_if: :all_blank
   
   # Callback
