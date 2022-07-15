@@ -1,16 +1,9 @@
+<h1>Nota</h1>
 
-<h1>QUESTÃO -> RESPOSTA</h1>
-
-<%= @myCrazyHash %>
-
-<hr>
-<h1>PESOS</h1>
-<%= @weights %>
+<h2 class="display-2"><%= @final %></h2>
 
 <hr>
-<%= @corrects %>
+<button class="btn btn-primary">Ver respostas</button>
 
-<hr>
-<h1>JOIN</h1>
-<%= @myJoin %>
+<%= link_to 'Voltar para provas', users_backoffice_tests_path, class:"btn btn-primary" %>
 

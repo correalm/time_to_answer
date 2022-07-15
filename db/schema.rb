@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 2022_07_15_122148) do
     t.integer "questions_count"
   end
 
-  create_table "test_answers", force: :cascade do |t|
+  create_table "test_answers", id: false, force: :cascade do |t|
     t.integer "user_id"
     t.integer "test_id"
     t.integer "question_id"

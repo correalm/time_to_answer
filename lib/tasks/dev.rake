@@ -61,8 +61,8 @@ namespace :dev do
   desc "Adiciona perguntas e respostas"
   task add_questions: :environment do
     Subject.all.each do |subject|
-      rand(3).times do |i|
-        params = create_params(subject)
+      rand(1..20).times do |i|
+        params = create_params(subject, i)
         answers_array = params[:question][:answers_attributes]
 
         rand(2..5).times do |j|
@@ -96,7 +96,7 @@ namespace :dev do
   desc "Adiciona respostas no Redis"
   task add_weight_to_questions: :environment do
     Question.all.each do | question |
-      question.weight = 2
+      question.weight = 1
     end
   end
 
@@ -114,11 +114,11 @@ namespace :dev do
   
   private
 
-  def create_params(subject = Subject.all.sample)
+  def create_params(subject = Subject.all.sample, i)
     { question: {
         description: "#{Faker::Lorem.paragraph}#{Faker::Lorem.question}",
         subject: subject,
-        weight: 1,
+        weight: i + 1,
         answers_attributes: [] 
       }
     }

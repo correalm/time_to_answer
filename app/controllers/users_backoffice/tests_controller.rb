@@ -26,7 +26,6 @@ class UsersBackoffice::TestsController < UsersBackofficeController
   end
 
   def results
-    console
     crazyQuery = TestAnswer.select(:question_id, :answer_id).where(:user_id => current_user.id, :test_id => @test.id).to_a
     
     @myCrazyHash = {}
@@ -40,11 +39,27 @@ class UsersBackoffice::TestsController < UsersBackofficeController
 
     # weights
     heyhey = Question.select(:id, :weight).where(:id => @myCrazyHash.keys).to_a
+
     @weights = {}
     heyhey.each do |w|
       @weights[w.id] = w.weight
     end
-  
+    
+    test = []
+    @corrects.each do |correct|
+      response = @myCrazyHash.key(correct.id)
+      test.push( @weights[response] )
+    end
+
+    total = 0
+    @weights.values.each do |w|
+      total += w
+    end
+
+    @final = (test.sum / total.to_f) * 10
+  end
+
+  def show
   end
 
 
