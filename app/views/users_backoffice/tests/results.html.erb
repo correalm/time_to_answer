@@ -3,7 +3,8 @@
 <h2 class="display-2"><%= @final %></h2>
 
 <hr>
-<button class="btn btn-primary">Ver respostas</button>
 
+
+<%= link_to 'Ver respostas',  "/users_backoffice/tests/#{@test.id}/show", class:"btn btn-primary"%>
 <%= link_to 'Voltar para provas', users_backoffice_tests_path, class:"btn btn-primary" %>
 

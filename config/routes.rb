@@ -1,19 +1,20 @@
 Rails.application.routes.draw do
   namespace :site do
     get 'welcome/index'
-    get 'search', to: 'search#questions'
+    get 'search',                       to: 'search#questions'
     get 'subject/:subject_id/:subject', to: 'search#subject', as: "search_subject"
-    post 'answer', to: 'answer#verify'
+    post 'answer',                      to: 'answer#verify'
   end
   namespace :users_backoffice do
     get 'welcome/index'
-    get 'profile', to: 'profile#edit'
-    patch 'profile', to: 'profile#update'
-    get 'zip_code', to: 'zip_code#show'
-    get 'tests', to: 'tests#index'
-    get 'tests/:id', to: 'tests#make'
-    post 'tests/:id', to: 'tests#verify'
+    get 'profile',          to: 'profile#edit'
+    patch 'profile',        to: 'profile#update'
+    get 'zip_code',         to: 'zip_code#show'
+    get 'tests',            to: 'tests#index'
+    get 'tests/:id',        to: 'tests#make'
     get 'tests/:id/result', to: 'tests#results'
+    get 'tests/:id/show',   to: 'tests#show'
+    post 'tests/:id',       to: 'tests#verify'
 
     
   end

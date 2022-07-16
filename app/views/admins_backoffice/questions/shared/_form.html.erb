@@ -6,14 +6,14 @@
     <span style="color: red"><%= message %></span>
   <% end %>
 <% end %>
-
-
 <%# com  [ :admins_backoffice, @admin] o rails determina qual a ação deve tomar. Se o @admin for nil, é a rota create. Caso contrário é a rota edit %>
 <%= form_with(model: [ :admins_backoffice, @question], local: true) do |f| %>
   <div class="form-group">
     <%=f.label :description %>
-    <%= f.hidden_field :description, class: "form-control", placeholder:"Descrição" %>
-    <trix-editor input="question_description"></trix-editor>
+    <%= f.text_area :description, class: "form-control", placeholder:"Descrição" %>
+    
+    <%=f.label :weight %>
+    <%= f.number_field :weight, min: 1, class: "form-control", placeholder:"Peso da questão" %>
     
     <%=f.label :subject %>
     <%= f.collection_select(:subject_id, @subjects, :id, :description, {}, class:"form-control") %>

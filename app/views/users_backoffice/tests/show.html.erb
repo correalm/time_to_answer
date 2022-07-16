@@ -1,0 +1,28 @@
+<div class="jumbotron">
+  <h3>
+    <%= @test.name %>
+  </h3>
+</div>
+
+<% @questions.each do |question| %>
+      <div class="card">
+        <h5 class="card-header">
+          Questão
+          <%= question.id  %> 
+        </h5>
+        <div class="card-body">
+          <h5 class="card-title"><%= sanitize question.description %></h5>
+          <ul style="list-style:none;">
+           <div class="nested-fields">
+              </br>
+              <% question.answers.each do |answer| %>
+                <%= radio_button_tag "form_questions[#{question.id}][]", answer.id, (@myCrazyHash.values.include?(answer.id)), disabled: true %>
+                <%=h sanitize answer.description %><br />
+              <% end %>
+            </div>              
+              <hr>
+          </ul>
+        </div>
+      </div>
+<% end %>
+<%= link_to 'Voltar para provas', users_backoffice_tests_path, class:"btn btn-primary" %>
