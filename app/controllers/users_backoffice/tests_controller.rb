@@ -1,40 +1,39 @@
 class UsersBackoffice::TestsController < UsersBackofficeController
-  before_action :set_test, only: [:make, :results, :show]
-  before_action :set_statistic, only: [:results, :show]
-  before_action :set_questions, only: [:make, :show] 
+  before_action :set_user, only: [:index ,:make, :show]
+  before_action :set_test, only: [:make, :result, :show]
+  before_action :get_grades_and_dates, only: [:index, :show]
+  before_action :get_user_questions_answers, only: [:show, :result]
 
   def index
-    console
-    @user = User.find(current_user.id)
     @tests = Test.all.includes(:subject).includes(:questions)
-    @grades = UserTest.get_grades(current_user.id)
-    @times = UserTest.get_times(current_user.id)
-
   end
 
   def make
+     if @user.test_ids.include?(@test.id)
+      redirect_to users_backoffice_tests_path, notice: "Você já fez essa prova!"
+     end
   end
 
-  def verify
-    teste = params[:form_questions]
-    teste.each do |question_id , answer_id|
-      user_test = TestAnswer.new
-      user_test.user_id = current_user.id
-      user_test.question_id = question_id
-      user_test.answer_id =  answer_id[0]
-      user_test.test_id = params[:id]
+  def register
+    test = params[:form_questions]
+    test.each do |question_id , answer_id|
+      user_test = UserTestAnswer.new
+      user_test.user = current_user.id
+      user_test.question = question_id
+      user_test.answer =  answer_id[0]
+      user_test.test = params[:id]
       user_test.save!
     end
 
     redirect_to "/users_backoffice/tests/#{params[:id]}/result"
   end
 
-  def results
-    UserTest.set_test(current_user.id, @test.id, @final)
+  def result
+    @grade = UserTestAnswer.calculate_grade(@user_questions_answers)
+    UserTest.set_test(current_user.id, @test.id, @grade)
   end
 
   def show
-    console
   end
 
   private
@@ -47,42 +46,17 @@ class UsersBackoffice::TestsController < UsersBackofficeController
     params.require(:form_questions).permit!
   end
 
-  def set_statistic
-    crazyQuery = TestAnswer.select(:question_id, :answer_id).where(:user_id => current_user.id, :test_id => @test.id).to_a
-    
-    @myCrazyHash = {}
-
-    crazyQuery.each do |query|
-    @myCrazyHash[query.question_id] = query.answer_id
-    end
-
-    # correct answers
-    @corrects = Answer.select(:id).where(:id => @myCrazyHash.values, :correct => true).to_a
-
-    # weights
-    heyhey = Question.select(:id, :weight).where(:id => @myCrazyHash.keys).to_a
-
-    weights = {}
-    heyhey.each do |w|
-      weights[w.id] = w.weight
-    end
-    
-    test = []
-    @corrects.each do |correct|
-      response = @myCrazyHash.key(correct.id)
-      test.push( weights[response] )
-    end
-
-    total = 0
-    weights.values.each do |w|
-      total += w
-    end
-
-    @final = (test.sum / total.to_f) * 10
+  def get_user_questions_answers
+    @user_questions_answers = UserTestAnswer.get_user_questions_answers(current_user.id, params[:id])    
   end
 
-  def set_questions
-    @questions = @test.questions.to_a
+  def set_user
+    @user = User.find(current_user.id)
+  end
+
+  def get_grades_and_dates
+    @grades = UserTest.get_grades(current_user.id)
+    @dates = UserTest.get_dates(current_user.id)
   end
 
   

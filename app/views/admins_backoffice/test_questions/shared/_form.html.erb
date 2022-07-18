@@ -1,7 +1,7 @@
 <h1><%= action_message %></h1>
 <hr>
 
-<%= form_with(model: [ :admins_backoffice, @test], local: true) do |f| %>
+<%= form_with(model: [ :admins_backoffice, @test ], local: true) do |f| %>
   <div id="questions">
     <%= f.fields_for :questions do |question| %>
       <%= render partial: "question_fields", locals: { f: question } %>

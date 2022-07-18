@@ -44,6 +44,7 @@ class AdminsBackoffice::TestsController < AdminsBackofficeController
 
   def destroy
     @test.questions.clear
+    @test.users.clear
     if @test.destroy
       redirect_to admins_backoffice_tests_path, notice: "Prova excluída com sucesso!"
     else

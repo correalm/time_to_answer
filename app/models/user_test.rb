@@ -20,13 +20,13 @@ class UserTest < ApplicationRecord
     return test_grade
   end
 
-  def self.get_times(id)
-    times = UserTest.select(:test_id, :created_at).where(:user_id => id).to_a
+  def self.get_dates(id)
+    dates = UserTest.select(:test_id, :created_at).where(:user_id => id).to_a
     
-    test_time = {}
-    times.each do |t|
-      test_time[t.test_id] = t.created_at
+    tests_dates = {}
+    dates.each do |d|
+      tests_dates[d.test_id] = d.created_at
     end
-    return test_time
+    return tests_dates
   end
 end

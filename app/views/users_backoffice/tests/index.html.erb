@@ -18,8 +18,8 @@
         <% end %>
       </td>
       <td>
-        <% if @times.keys.include?(test.id) %>
-          <%= l @times[test.id] %>
+        <% if @dates.keys.include?(test.id) %>
+          <%= l(@dates[test.id], format: :short) %>
         <% else %>
           -
         <% end %>

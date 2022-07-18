@@ -6,20 +6,24 @@
     
     <%=f.label :subject %>
     <%= f.collection_select(:subject_id, @subjects, :id, :description, {}, class:"form-control", disabled:true) %>
-    <%= f.submit "enviar", class:"btn btn-primary"%>
+    <br>
+    <%= f.submit "Enviar", class:"btn btn-primary"%>
     <hr>
     <%= link_to admins_backoffice_test_questions_path(test: @test, id: @test.subject_id), class: "btn btn-primary btn-sm" do %>
       Questões
     <% end %>
-
-    <% end %>
   </div>
+<% end %>
   <hr>
   <% if @questions.length > 0 %>
     <h3>Questões da prova</h3>
-    <% @questions.each do |question|%>
-      <%= sanitize question.description %>
-    <% end %>
+    <ol>
+      <% @questions.each do |question|%>
+        <li>
+          <%= sanitize question.description %> 
+        </li>
+      <% end %>
+    </ol>
   <% else %>
     <h3>Prova sem questões 😭😭😭😭</h3>
   <% end %>
