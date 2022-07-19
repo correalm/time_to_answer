@@ -2,31 +2,31 @@ class UserTest < ApplicationRecord
   belongs_to :user
   belongs_to :test
 
-  def self.set_test(current_user, test_id, grade)
-    newUserTest = UserTest.new
-    newUserTest.user_id = current_user
-    newUserTest.test_id = test_id
-    newUserTest.grade = grade
-    newUserTest.save!
+  has_many :test_answers
+  has_many :answers, through: :test_answers
+
+  accepts_nested_attributes_for :test_answers
+
+
+  def self.calculate_avarage(user_id, test_id)
+    user_test = UserTest.where(:user_id => user_id, :test_id => test_id)[0]
+    test_answers = user_test.test_answers.collect(&:answer_id)
+
+    answers = Answer.where(:id => test_answers)
+
+    weight_of_corrects = 0
+    weight_of_test = 0
+
+    answers.each do |answer|  
+      if answer.correct?
+        weight_of_corrects += answer.question.weight
+        weight_of_test += answer.question.weight
+      else
+        weight_of_test += answer.question.weight
+      end
+    end
+
+    final = (weight_of_corrects / weight_of_test.to_f) * 10
   end
 
-  def self.get_grades(id)
-    grades = UserTest.select(:test_id, :grade).where(:user_id => id).to_a
-    
-    test_grade = {}
-    grades.each do |g|
-      test_grade[g.test_id] = g.grade
-    end
-    return test_grade
-  end
-
-  def self.get_dates(id)
-    dates = UserTest.select(:test_id, :created_at).where(:user_id => id).to_a
-    
-    tests_dates = {}
-    dates.each do |d|
-      tests_dates[d.test_id] = d.created_at
-    end
-    return tests_dates
-  end
 end

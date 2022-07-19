@@ -11,25 +11,17 @@
     <% @tests.each do |test| %>
       <th scope="row"> <%= test.id  %></th>
       <td>
-        <% if @user.test_ids.include?(test.id) %>
-          <%= link_to test.name, "/users_backoffice/tests/#{test.id}/show", class:'btn btn btn-warning' %>  
+        <% if current_user.test_ids.include?(test.id) %>
+          <%= link_to test.name, users_backoffice_test_path(test.id), class:'btn btn btn-warning' %>  
         <% else %>
-          <%= link_to test.name, users_backoffice_path(test.id), class:'btn btn-primary' %>
+          <%= link_to test.name, new_users_backoffice_test_user_test_path(test.id), class:'btn btn-primary' %>
         <% end %>
       </td>
       <td>
-        <% if @dates.keys.include?(test.id) %>
-          <%= l(@dates[test.id], format: :short) %>
-        <% else %>
-          -
-        <% end %>
+        TODO
       </td>
       <td>
-        <% if @grades.keys.include?(test.id) %>
-          <%= @grades[test.id].round() %>
-        <% else %>
-          -
-        <% end %>
+        TODO
       </td>
     </tr>
     <% end %>

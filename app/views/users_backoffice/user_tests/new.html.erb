@@ -1,15 +1,12 @@
 <div class="jumbotron">
   <h3>
     <%= @test.name %>
-    <% if current_user.test_ids.include?(@test.id) %>
-    <hr>
-      <h4>Nota: TODO </h4>
-      <h4>Realizado em: TODO </h4>
-    <% end %>
   </h3>
 </div>
 
-<% @test.questions.each do |question| %>
+
+  <%= form_for([ :users_backoffice, @test, @user_test], local: true) do |f| %>
+    <% @test.questions.each do |question| %>
       <div class="card">
         <h5 class="card-header">
           Questão
@@ -18,17 +15,22 @@
         <div class="card-body">
           <h5 class="card-title"><%= sanitize question.description %></h5>
           <ul style="list-style:none;">
+          <%= f.fields_for :test_answers do |test_answer_form| %>
            <div class="nested-fields">
-              <br>
+              <%= f.label :description %>
+              </br>
               <% question.answers.each do |answer| %>
-                <%= radio_button_tag "form_questions[#{question.id}][]", answer.id, (@user_test_answers.include?(answer.id)), disabled: true %>
+                <%= check_box_tag "[answer_ids][]",  answer.id %>
+                <%#= radio_button_tag "[answer_ids][]", answer.id %>
                 <%=h sanitize answer.description %><br />
               <% end %>
-            </div>              
+            </div>
+          <% end %>
+              
               <hr>
           </ul>
         </div>
       </div>
+    <% end %>
+    <%= f.submit "Enviar", class:"btn btn-primary" %>
 <% end %>
-<br>
-<%= link_to 'Voltar para provas', users_backoffice_tests_path, class:"btn btn-primary" %>

@@ -21,7 +21,7 @@
            <div class="nested-fields">
               <br>
               <% question.answers.each do |answer| %>
-                <%= radio_button_tag "form_questions[#{question.id}][]", answer.id, (@user_test_answers.include?(answer.id)), disabled: true %>
+                <%= radio_button_tag "form_questions[#{question.id}][]", answer.id, (@test_answers.include?(answer.id)), disabled: true %>
                 <%=h sanitize answer.description %><br />
               <% end %>
             </div>              
