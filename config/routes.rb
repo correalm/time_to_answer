@@ -10,12 +10,6 @@ Rails.application.routes.draw do
     get 'profile',          to: 'profile#edit'
     patch 'profile',        to: 'profile#update'
     get 'zip_code',         to: 'zip_code#show'
-    get 'tests',            to: 'tests#index'
-    # get 'tests/:id',        to: 'tests#make'
-    # get 'tests/:id/result', to: 'tests#result'
-    # get 'tests/:id/show',   to: 'tests#show'
-    # post 'tests/:id',       to: 'tests#register'
-
     resources :tests do
       resources :user_tests
     end 

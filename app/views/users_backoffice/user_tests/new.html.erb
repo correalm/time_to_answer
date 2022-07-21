@@ -5,7 +5,8 @@
 </div>
 
 
-  <%= form_for([ :users_backoffice, @test, @user_test], local: true) do |f| %>
+  <%= form_for([ :users_backoffice, :test, @user_test], local: true) do |f| %>
+    <%= f.hidden_field :test_id, :value => @test.id %>
     <% @test.questions.each do |question| %>
       <div class="card">
         <h5 class="card-header">
@@ -15,22 +16,23 @@
         <div class="card-body">
           <h5 class="card-title"><%= sanitize question.description %></h5>
           <ul style="list-style:none;">
-          <%= f.fields_for :test_answers do |test_answer_form| %>
+
+          <%= f.fields_for :test_answers do |test_answers_form| %>
+           
            <div class="nested-fields">
-              <%= f.label :description %>
               </br>
               <% question.answers.each do |answer| %>
-                <%= check_box_tag "[answer_ids][]",  answer.id %>
-                <%#= radio_button_tag "[answer_ids][]", answer.id %>
-                <%=h sanitize answer.description %><br />
+                <%= test_answers_form.radio_button :answer_id, answer.id %>
+                <%=h sanitize answer.description %>
+                <br />
               <% end %>
             </div>
           <% end %>
-              
               <hr>
           </ul>
         </div>
       </div>
     <% end %>
+    </br>
     <%= f.submit "Enviar", class:"btn btn-primary" %>
 <% end %>

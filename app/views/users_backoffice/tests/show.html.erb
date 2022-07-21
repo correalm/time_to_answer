@@ -3,8 +3,8 @@
     <%= @test.name %>
     <% if current_user.test_ids.include?(@test.id) %>
     <hr>
-      <h4>Nota: TODO </h4>
-      <h4>Realizado em: TODO </h4>
+      <h4>Nota: <%= @user_test.grade.round() %> </h4>
+      <h4>Realizado em: <%= l(@user_test.created_at, format: :short) %> </h4>
     <% end %>
   </h3>
 </div>

@@ -17,12 +17,27 @@
           <%= link_to test.name, new_users_backoffice_test_user_test_path(test.id), class:'btn btn-primary' %>
         <% end %>
       </td>
+
+      <% if current_user.test_ids.include?(test.id) %>
+        <% @user_tests.each do |user_test|%>
+        <% if user_test.test_id == test.id %> 
+        <td>
+          <%= l(user_test.created_at, format: :short) %>
+        </td>
+        <td>
+          <%= user_test.grade.round() %>
+        </td>
+        <% end %>
+      <% end %>
+      <% else %>
       <td>
-        TODO
+        -
       </td>
       <td>
-        TODO
+        -
       </td>
+      <% end %>
+
     </tr>
     <% end %>
   </tbody>

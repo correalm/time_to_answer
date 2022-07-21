@@ -7,6 +7,10 @@ class UserTest < ApplicationRecord
 
   accepts_nested_attributes_for :test_answers
 
+  scope :_search_answers_, -> (user, test_id){
+    user.user_tests.where(test_id: test_id)[0].answer_ids 
+  }
+
 
   def self.calculate_avarage(user_id, test_id)
     user_test = UserTest.where(:user_id => user_id, :test_id => test_id)[0]
