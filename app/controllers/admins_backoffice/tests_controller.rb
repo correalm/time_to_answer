@@ -4,12 +4,10 @@ class AdminsBackoffice::TestsController < AdminsBackofficeController
   before_action :get_questions, only: [:edit, :new]
   
   def index
-    console
     @tests = Test.all.includes(:subject).includes(:questions)
   end
 
   def new
-    console
     @test = Test.new
   end
   
@@ -30,14 +28,10 @@ class AdminsBackoffice::TestsController < AdminsBackofficeController
   end
 
   def update
-    if params[:test]    
-      if @test.update(params_test)
-        redirect_to edit_admins_backoffice_test_path(@test), notice: "Prova atualizada com sucesso!"
-      else
-        render :edit
-      end
+    if @test.update(params_test)
+      redirect_to edit_admins_backoffice_test_path(@test), notice: "Prova atualizada com sucesso!"
     else
-      redirect_to edit_admins_backoffice_test_path(@test), notice: "Prova não pode ficar sem questões!"
+      render :edit
     end
   end
 
