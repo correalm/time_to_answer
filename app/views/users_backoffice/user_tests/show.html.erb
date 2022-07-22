@@ -1,11 +1,9 @@
 <div class="jumbotron">
   <h3>
     <%= @test.name %>
-    <% if current_user.test_ids.include?(@test.id) %>
     <hr>
-      <h4>Nota: <%= @user_test.grade.round() %> </h4>
+      <h4>Nota: <%= @user_test.grade %> </h4>
       <h4>Realizado em: <%= l(@user_test.created_at, format: :short) %> </h4>
-    <% end %>
   </h3>
 </div>
 
@@ -21,7 +19,7 @@
            <div class="nested-fields">
               <br>
               <% question.answers.each do |answer| %>
-                <%= radio_button_tag "form_questions[#{question.id}][]", answer.id, (@user_test_answers.include?(answer.id)), disabled: true %>
+                <%= radio_button_tag "form_questions[#{question.id}][]", answer.id, (@user_test.answer_ids.include?(answer.id)), disabled: true %>
                 <%=h sanitize answer.description %><br />
               <% end %>
             </div>              

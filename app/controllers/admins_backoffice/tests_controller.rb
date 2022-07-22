@@ -25,7 +25,6 @@ class AdminsBackoffice::TestsController < AdminsBackofficeController
   
   
   def edit
-    console
     questions_ids = @test.question_ids
     @questions = Question.find(questions_ids)
   end
@@ -44,7 +43,7 @@ class AdminsBackoffice::TestsController < AdminsBackofficeController
 
   def destroy
     @test.questions.clear
-    @test.users.clear
+    @test.user_tests.clear
     if @test.destroy
       redirect_to admins_backoffice_tests_path, notice: "Prova excluída com sucesso!"
     else
