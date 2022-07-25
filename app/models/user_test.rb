@@ -7,15 +7,16 @@ class UserTest < ApplicationRecord
 
   accepts_nested_attributes_for :test_answers
 
-  def self.calculate_avarage(user_id, test_id)
-    user_test = UserTest.where(:user_id => user_id, :test_id => test_id).first
-    
-    weight_of_test = Test.calculate_weight(test_id)
-    
-    correct_answers = user_test.answers.select { |answer| answer.correct? } 
+  before_commit do
+    self.grade = calculate_avarage
+    self.save
+  end
+
+  def calculate_avarage
+    correct_answers = answers.select(&:correct) 
     weight_of_corrects = correct_answers.collect(&:question).collect(&:weight).sum
     
-    ((weight_of_corrects / weight_of_test.to_f) * 10).round()
+    ((weight_of_corrects / test.calculate_weight.to_f) * 10).round()
   end
 
 end

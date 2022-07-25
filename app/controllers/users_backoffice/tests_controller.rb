@@ -1,6 +1,6 @@
 class UsersBackoffice::TestsController < UsersBackofficeController
 
   def index
-    @tests = Test.all.includes(:subject).includes(:questions)
+    @tests = Test.all.page(params[:page])
   end
 end

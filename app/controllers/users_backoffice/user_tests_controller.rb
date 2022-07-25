@@ -11,18 +11,16 @@ class UsersBackoffice::UserTestsController < UsersBackofficeController
 
   def create
     @user_test = current_user.user_tests.new(params_test)
-    if  @user_test.save!
-      @user_test.grade = UserTest.calculate_avarage(current_user.id, params[:test_id])
-      @user_test.save!
-      redirect_to users_backoffice_test_user_test_path(id: @user_test.test_id, test_id: @user_test.id), notice: "Prova realizada com sucesso"
+    @user_test.test_id = params[:test_id]
+    if @user_test.save
+      redirect_to users_backoffice_test_user_test_path(@user_test.test_id, @user_test.id), notice: "Prova realizada com sucesso"
     else
-      render :new
+      render :new, notice: @user_test.errors
     end
   end
 
   def show
-    @test = Test.find(params[:id])
-    @user_test = UserTest.where(user_id: current_user.id, test_id: params[:id]).first
+    @user_test = UserTest.find(params[:id])
   end
 
   def params_test

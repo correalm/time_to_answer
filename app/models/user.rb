@@ -24,6 +24,10 @@ class User < ApplicationRecord
     "#{self.first_name} #{self.last_name}"
   end
 
+  def find_user_test(test)
+    user_tests.where(test_id: test.id).first
+  end
+
   private
 
   def set_statistic

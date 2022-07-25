@@ -5,7 +5,9 @@ class Test < ApplicationRecord
   has_many :user_tests
   has_many :users, through: :user_tests
 
-  def self.calculate_weight(id)
-    Test.find(id).questions.collect(&:weight).sum
+  paginates_per 5
+
+  def calculate_weight
+    questions.collect(&:weight).sum
   end
 end

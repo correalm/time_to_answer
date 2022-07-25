@@ -5,8 +5,7 @@
 </div>
 
 
-  <%= form_for([ :users_backoffice, :test, @user_test], local: true) do |f| %>
-    <%= f.hidden_field :test_id, :value => @test.id %>
+  <%= form_for([ :users_backoffice, @test, @user_test], local: true) do |f| %>
     <% @test.questions.each do |question| %>
       <div class="card">
         <h5 class="card-header">

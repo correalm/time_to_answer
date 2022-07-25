@@ -1,13 +1,13 @@
 <div class="jumbotron">
   <h3>
-    <%= @test.name %>
+    <%= @user_test.test.name %>
     <hr>
       <h4>Nota: <%= @user_test.grade %> </h4>
       <h4>Realizado em: <%= l(@user_test.created_at, format: :short) %> </h4>
   </h3>
 </div>
 
-<% @test.questions.each do |question| %>
+<% @user_test.test.questions.each do |question| %>
       <div class="card">
         <h5 class="card-header">
           Questão

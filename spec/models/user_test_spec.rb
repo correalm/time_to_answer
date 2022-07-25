@@ -1,14 +1,9 @@
 require 'rails_helper'
+require 'rails_helper'
 
-subject = Subject.create({
-  description: "test"
-})
+subject = FactoryBot.build :subject
+user = FactoryBot.build :user
 
-user = User.create({
-  email: "test@test.com",
-  password: 123456,
-  password_confirmation: 123456
-})
 
 Question.create([{
   description: "a", 
@@ -134,38 +129,35 @@ UserTest.create([{
 }])
 
 RSpec.describe UserTest, type: :model do
-
+  
   it "the first user_test must have the answers 2, 5 and 8" do
     user_test = UserTest.first
-
     expect(user_test.answer_ids). to eq([2, 5, 8])
   end
 
   it ".calculate_avarage should return 10" do
-    test = Test.first
+    user_test = UserTest.first
 
-    grade = UserTest.calculate_avarage(user.id, test.id)
-    expect(grade).to eq(10)
+    expect(user_test.calculate_avarage).to eq(10)
   end
 
   it ".calculate_avarage should return 7" do
-    test = Test.all[1]
+    user_test = UserTest.all[1]
 
-    grade = UserTest.calculate_avarage(user.id, test.id)
-    expect(grade).to eq(7)
+    expect(user_test.calculate_avarage).to eq(7)
   end
 
   it ".calculate_avarage should return 3" do
-    test = Test.all[2]
+    user_test = UserTest.all[2]
 
-    grade = UserTest.calculate_avarage(user.id, test.id)
-    expect(grade).to eq(3)
+    expect(user_test.calculate_avarage).to eq(3)
   end
 
   it ".calculate_avarage should return 0" do
-    test = Test.all[3]
+    user_test = UserTest.all[3]
 
-    grade = UserTest.calculate_avarage(user.id, test.id)
-    expect(grade).to eq(0)
+    expect(user_test.calculate_avarage).to eq(0)
   end
+
+  
 end
