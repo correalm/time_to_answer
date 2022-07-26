@@ -7,16 +7,18 @@ class UserTest < ApplicationRecord
 
   accepts_nested_attributes_for :test_answers
 
-  before_commit do
-    self.grade = calculate_avarage
-    self.save
-  end
+  before_commit :set_grade
 
   def calculate_avarage
     correct_answers = answers.select(&:correct) 
     weight_of_corrects = correct_answers.collect(&:question).collect(&:weight).sum
     
     ((weight_of_corrects / test.calculate_weight.to_f) * 10).round()
+  end
+
+  def set_grade
+    self.grade = calculate_avarage
+    self.save
   end
 
 end
